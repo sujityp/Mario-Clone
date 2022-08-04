@@ -13,6 +13,11 @@ config_version=4
 config/name="Mario Clone"
 config/icon="res://icon.png"
 
+[display]
+
+window/size/width=512
+window/size/height=300
+
 [physics]
 
 common/enable_pause_aware_picking=true
