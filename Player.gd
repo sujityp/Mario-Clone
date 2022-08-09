@@ -31,9 +31,15 @@ func get_input():
 func process_movement(time):
 	if direction.x != 0:
 		velocity.x = lerp(velocity.x, direction.x * speed, acceleration)
+		$AnimatedSprite.play("walk")
+		if direction.x < 0:
+			$AnimatedSprite.flip_h = true
+		elif direction.x > 0:
+			$AnimatedSprite.flip_h = false
 	else:
 		velocity.x = lerp(velocity.x, 0, deceleration)
-	
+		$AnimatedSprite.stop()
+		$AnimatedSprite.frame = 0
 	velocity.y += g * time
 	velocity = move_and_slide(velocity, Vector2.UP)
 	if direction.y == -1:
