@@ -58,4 +58,3 @@ func process_movement(time):
 			$AnimatedSprite.frame = 0
 		else:
 			$AnimatedSprite.frame = 1
-	
