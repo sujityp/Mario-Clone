@@ -9,6 +9,8 @@ export (int) var jump_speed = -350
 export (int) var g = 1000
 var velocity = Vector2.ZERO
 var direction = Vector2.ZERO
+signal player_hit
+var alive = true
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -51,10 +53,23 @@ func process_movement(time):
 		if is_on_floor():
 			velocity.y = jump_speed
 	
-	if not is_on_floor():
+	if (not is_on_floor()) and alive:
 		$AnimatedSprite.stop()
 		$AnimatedSprite.animation = "jump"
 		if velocity.y <= 0:
 			$AnimatedSprite.frame = 0
 		else:
 			$AnimatedSprite.frame = 1
+
+
+func _on_EnemyDetector_body_entered(body: Node) -> void:
+	if body.is_in_group("Dangerous"):
+		emit_signal("player_hit")
+		kill_player()
+
+func kill_player():
+	alive = false
+	$AnimatedSprite.animation = "death"
+	$CollisionShape2D.disabled = true
+	$EnemyDetector/CollisionShape2D2.disabled = true
+	velocity = Vector2(0,2 * jump_speed)
