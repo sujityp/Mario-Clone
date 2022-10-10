@@ -24,7 +24,7 @@ extents = Vector2( 54, 70 )
 [sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 11.25, 70 )
 
-[node name="Enemy" type="KinematicBody2D"]
+[node name="Enemy" type="KinematicBody2D" groups=["Dangerous"]]
 scale = Vector2( 0.2, 0.2 )
 script = ExtResource( 4 )
 
@@ -37,7 +37,6 @@ playing = true
 [node name="DangerCollision" type="CollisionShape2D" parent="."]
 position = Vector2( -3.77099e-06, 26 )
 rotation = -1.5708
-scale = Vector2( 1, 1 )
 shape = SubResource( 3 )
 
 [node name="StompDetector" type="Area2D" parent="."]
@@ -47,7 +46,6 @@ scale = Vector2( 0.999999, 0.999999 )
 
 [node name="SafeCollision" type="CollisionShape2D" parent="StompDetector"]
 position = Vector2( -1.25, 2.91038e-11 )
-scale = Vector2( 1, 1 )
 shape = SubResource( 4 )
 
 [connection signal="body_entered" from="StompDetector" to="." method="_on_StompDetector_body_entered"]

@@ -5,7 +5,6 @@ export (int) var speed = 100
 var velocity = Vector2(speed, 0)
 var direction = 1
 var g = 1000
-signal player_collision
 
 
 # Called when the node enters the scene tree for the first time.
@@ -28,3 +27,6 @@ func _on_StompDetector_body_entered(body: Node) -> void:
 	if body.name == "Player":
 		body.velocity.y = body.jump_speed
 	queue_free()
+
+func player_death():
+	$Enemy.paused = true
