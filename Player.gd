@@ -15,12 +15,12 @@ var alive = true
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
-	get_input()
+	if alive: get_player_input()
 	process_movement(delta)
 
 
 # Gets the user's input
-func get_input():
+func get_player_input():
 	direction = Vector2.ZERO
 	if Input.is_action_pressed("ui_left"):
 		direction.x += -1
@@ -34,8 +34,8 @@ func get_input():
 
 
 func process_movement(time):
-	$AnimatedSprite.play("walk")
-	if direction.x != 0:
+	if direction.x != 0 and alive:
+		$AnimatedSprite.play("walk")
 		velocity.x = lerp(velocity.x, direction.x * speed, acceleration)
 		if direction.x < 0:
 			$AnimatedSprite.flip_h = true
@@ -70,6 +70,7 @@ func _on_EnemyDetector_body_entered(body: Node) -> void:
 func kill_player():
 	alive = false
 	$AnimatedSprite.animation = "death"
-	$CollisionShape2D.disabled = true
-	$EnemyDetector/CollisionShape2D2.disabled = true
-	velocity = Vector2(0,2 * jump_speed)
+	$CollisionShape2D.queue_free()
+	$EnemyDetector.queue_free()
+	velocity = Vector2(0,1.5 * jump_speed)
+	velocity = move_and_slide(velocity, Vector2.UP)
