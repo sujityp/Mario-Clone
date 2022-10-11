@@ -7,7 +7,7 @@
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
-"frames": [ ExtResource( 2 ) ],
+"frames": [ ExtResource( 2 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 2 ) ],
 "loop": true,
 "name": "death",
 "speed": 5.0
@@ -26,6 +26,7 @@ extents = Vector2( 11.25, 70 )
 
 [node name="Enemy" type="KinematicBody2D"]
 scale = Vector2( 0.2, 0.2 )
+collision_mask = 2
 script = ExtResource( 4 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
@@ -47,7 +48,7 @@ scale = Vector2( 0.999999, 0.999999 )
 
 [node name="SafeCollision" type="CollisionShape2D" parent="StompDetector"]
 position = Vector2( -1.25, 2.91038e-11 )
-scale = Vector2( 1, 1 )
 shape = SubResource( 4 )
 
+[connection signal="animation_finished" from="AnimatedSprite" to="." method="_on_AnimatedSprite_animation_finished"]
 [connection signal="body_entered" from="StompDetector" to="." method="_on_StompDetector_body_entered"]
