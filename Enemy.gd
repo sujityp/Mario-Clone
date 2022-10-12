@@ -26,7 +26,12 @@ func _on_StompDetector_body_entered(body: Node) -> void:
 		return
 	if body.name == "Player":
 		body.velocity.y = body.jump_speed
-	queue_free()
+		$AnimatedSprite.animation = "death"
+		speed = 0
+		$DangerCollision.queue_free()
+		$StompDetector.queue_free()
 
-func player_death():
-	$Enemy.paused = true
+
+func _on_AnimatedSprite_animation_finished():
+	if $AnimatedSprite.animation == "death":
+		queue_free()
