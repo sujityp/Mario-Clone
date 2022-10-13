@@ -28,6 +28,7 @@ func _on_StompDetector_body_entered(body: Node) -> void:
 		body.velocity.y = body.jump_speed
 		$AnimatedSprite.animation = "death"
 		speed = 0
+		g = 0
 		$DangerCollision.queue_free()
 		$StompDetector.queue_free()
 
